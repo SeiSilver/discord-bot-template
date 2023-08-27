@@ -7,7 +7,27 @@
 
 ## Note
 
-the DiscordFactory will auto load the 
+The `DiscordFactory` will autoload all of your Discord commands and events.
+
+If you want to add more events or commands, you just need to put them all in the `events` and `commands` folders.
+
+![img.png](.github/asset/img.png)
+
+You will need to assign your handler/command/event path. The handler will run `commandHandler.ts` and `eventHandler.ts` to autoload all of your commands and events into the Discord client.
+
+You can keep this as the default. However, if you need to refactor the code, you will need to update the location. For example:
+
+```typescript
+import { DiscordFactory } from "@service/discord/discordFactory";
+
+const HANDLER_PATH = 'services/discord/handlers';
+const COMMAND_PATH = "services/discord/commands";
+const EVENT_PATH = "services/discord/events";
+
+const discordFactory = new DiscordFactory(HANDLER_PATH, COMMAND_PATH, EVENT_PATH);
+
+discordFactory.init();
+```
 
 ## Update Dependency
 
