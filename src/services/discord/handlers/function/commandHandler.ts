@@ -1,7 +1,5 @@
 import fs from "fs";
-import {REST} from "discord.js";
-import {Routes} from "discord-api-types/v9"
-import EnvConfig from "@config/envConfig";
+import {Events} from "discord.js";
 import {CustomClient} from "@model/CustomClient";
 import {LogUtils} from "@util/logUtils";
 
@@ -23,16 +21,14 @@ module.exports = (client: CustomClient) => {
                 commandArray.push(command.data.toJSON());
             }
         }
-        const clientId = "1126514848428204093";
-        const rest = new REST().setToken(EnvConfig.DISCORD_TOKEN);
-        try {
-            LogUtils.info("Start refreshing application (/) commands.");
-            await rest.put(Routes.applicationCommands(clientId), {
-                body: client.commandArray,
-            })
-        } catch (error) {
-            console.log(error);
-        }
+        client.on(Events.ClientReady, async () => {
+            try {
+                LogUtils.info("Start refreshing application (/) commands.");
+                await client.application?.commands.set(client.commandArray);
+            } catch (error) {
+                LogUtils.error("Error loading (/) commands!", error);
+            }
+        });
 
     }
 }
