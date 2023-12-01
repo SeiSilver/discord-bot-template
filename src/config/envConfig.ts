@@ -6,7 +6,7 @@ dotenv.config();
 
 class EnvConfig {
 
-    public static DISCORD_TOKEN: string = process.env.DISCORD_TOKEN || '';
+    public static DISCORD_TOKEN: string = process.env.DISCORD_TOKEN ?? '';
 
     static initialize() {
         EnvConfig.validateRequireEnv();
@@ -14,7 +14,7 @@ class EnvConfig {
 
     private static validateRequireEnv() {
         if (!EnvConfig.DISCORD_TOKEN) {
-            LogUtils.error("DISCORD_TOKEN is missing", null)
+            LogUtils.error("DISCORD_TOKEN is missing")
             process.exit(1);
         }
 

@@ -18,7 +18,7 @@ export class LogUtils {
         console.log(LogUtils.debugString(`=> DEBUG: ${message}`))
     }
 
-    public static error(message: string, error: any): void {
+    public static error(message: string, error?: any): void {
         if (error) {
             console.error(LogUtils.errorString(`=> ERROR: ${message}, with Exception: ${error}`))
         } else {
